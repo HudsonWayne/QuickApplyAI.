@@ -31,3 +31,15 @@ def scrape_jobs(keyword="developer", location=""):
         print("Error scraping jobs:", e)
 
     return jobs
+
+def match_jobs(cv_skills, jobs):
+    """
+    Match scraped jobs to CV skills.
+    Simple matching: if job title contains any skill, consider it relevant.
+    """
+    matched_jobs = []
+    for job in jobs:
+        job_text = job["title"].lower()
+        if any(skill.lower() in job_text for skill in cv_skills):
+            matched_jobs.append(job)
+    return matched_jobs
